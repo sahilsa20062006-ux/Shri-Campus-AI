@@ -1,0 +1,847 @@
+{
+  "institute": {
+    "id": "SRIST",
+    "name": "Shri Ram Institute of Science & Technology",
+    "short_name": "SRIST",
+    "location": "Jabalpur, Madhya Pradesh, India",
+    "departments": [
+      "B.Tech",
+      "MBA"
+    ],
+    "floors": [
+      "Ground Floor",
+      "First Floor",
+      "Second Floor",
+      "Third Floor"
+    ],
+    "navigation_note": "Text-based campus information only; no verified GPS or live indoor navigation.",
+    "principal": "Dr. Sameer Vaidya"
+  },
+  "faculty": [
+    {
+      "id": "FAC001",
+      "name": "Sudeep Sharma",
+      "designation": "AIML HOD",
+      "department": "B.Tech",
+      "branch": "AIML",
+      "room": "103",
+      "floor": "First Floor",
+      "notes": "Latest owner-provided correction."
+    },
+    {
+      "id": "FAC002",
+      "name": "Dr. Ruchi Kshatri Patel",
+      "designation": "CSE HOD",
+      "department": "B.Tech",
+      "branch": "CSE",
+      "room": "113",
+      "floor": "First Floor",
+      "notes": "Name supplied by owner."
+    },
+    {
+      "id": "FAC003",
+      "name": "Dr. M.S. Khan",
+      "designation": "First-Year HOD",
+      "department": "B.Tech",
+      "branch": null,
+      "room": "19",
+      "floor": "Ground Floor",
+      "notes": "Room 19 is also associated with Engineering Physics Lab."
+    },
+    {
+      "id": "FAC004",
+      "name": "Dr. Sameer Vaidya",
+      "designation": "Principal",
+      "department": "Administration",
+      "branch": null,
+      "room": "01",
+      "floor": "Ground Floor",
+      "notes": "Principal of Shri Ram Institute of Science & Technology (SRIST)."
+    },
+    {
+      "id": "FAC005",
+      "name": "Prof. Ankit Kachhi",
+      "designation": "Third-Year AIML Incharge",
+      "department": "B.Tech",
+      "branch": "AIML",
+      "room": null,
+      "floor": "First Floor",
+      "notes": "Incharge faculty for AIML Third Year."
+    },
+    {
+      "id": "FAC006",
+      "name": "Prof. Vikas Dhanwani",
+      "designation": "Third-Year AIML Incharge",
+      "department": "B.Tech",
+      "branch": "AIML",
+      "room": null,
+      "floor": "First Floor",
+      "notes": "Incharge faculty for AIML Third Year."
+    }
+  ],
+  "administrative_offices": [
+    {
+      "id": "ADM001",
+      "name": "Principal's Office",
+      "room": "01",
+      "floor": "Ground Floor",
+      "person": "Dr. Sameer Vaidya",
+      "notes": "Principal of SRIST is Dr. Sameer Vaidya."
+    },
+    {
+      "id": "ADM002",
+      "name": "Accounts Office",
+      "room": "03",
+      "floor": "Ground Floor",
+      "person": null,
+      "notes": null
+    },
+    {
+      "id": "ADM003",
+      "name": "TPO / PRO",
+      "room": "12",
+      "floor": "Ground Floor",
+      "person": null,
+      "notes": "Also recorded as Public Relations Officer; exact designation needs confirmation."
+    },
+    {
+      "id": "ADM004",
+      "name": "Exam Cell",
+      "room": "121",
+      "floor": "First Floor",
+      "person": null,
+      "notes": null
+    },
+    {
+      "id": "ADM005",
+      "name": "Record Room",
+      "room": "101",
+      "floor": "First Floor",
+      "person": null,
+      "notes": null
+    },
+    {
+      "id": "ADM006",
+      "name": "Strong Room",
+      "room": "122",
+      "floor": "First Floor",
+      "person": null,
+      "notes": null
+    }
+  ],
+  "rooms": {
+    "ground_floor": [
+      {
+        "room": "01",
+        "floor": "Ground Floor",
+        "use": "Principal's Office — Dr. Sameer Vaidya (Principal)"
+      },
+      {
+        "room": "03",
+        "floor": "Ground Floor",
+        "use": "Accounts Office"
+      },
+      {
+        "room": "04",
+        "floor": "Ground Floor",
+        "use": "CSE First-Year Classroom"
+      },
+      {
+        "room": "05",
+        "floor": "Ground Floor",
+        "use": "CSE First-Year Classroom"
+      },
+      {
+        "room": "06",
+        "floor": "Ground Floor",
+        "use": "CSE First-Year Classroom"
+      },
+      {
+        "room": "07",
+        "floor": "Ground Floor",
+        "use": "Basic Electrical & Electronics Lab"
+      },
+      {
+        "room": "08",
+        "floor": "Ground Floor",
+        "use": "Basic Computer Engineering Lab-1"
+      },
+      {
+        "room": "09",
+        "floor": "Ground Floor",
+        "use": "Language / Communication Skills Lab"
+      },
+      {
+        "room": "10",
+        "floor": "Ground Floor",
+        "use": "Library"
+      },
+      {
+        "room": "11",
+        "floor": "Ground Floor",
+        "use": "Girls Room"
+      },
+      {
+        "room": "12",
+        "floor": "Ground Floor",
+        "use": "TPO / PRO (also recorded as Public Relations Officer)"
+      },
+      {
+        "room": "15",
+        "floor": "Ground Floor",
+        "use": "AIML First-Year Classroom"
+      },
+      {
+        "room": "16",
+        "floor": "Ground Floor",
+        "use": "AIML First-Year Classroom"
+      },
+      {
+        "room": "18",
+        "floor": "Ground Floor",
+        "use": "IoT First-Year Classroom"
+      },
+      {
+        "room": "19",
+        "floor": "Ground Floor",
+        "use": "Engineering Physics Lab / First-Year HOD office (Dr. M.S. Khan)"
+      },
+      {
+        "room": "20",
+        "floor": "Ground Floor",
+        "use": "Engineering Chemistry Lab"
+      },
+      {
+        "room": "21",
+        "floor": "Ground Floor",
+        "use": "Staff Room"
+      }
+    ],
+    "first_floor": [
+      {
+        "room": "101",
+        "floor": "First Floor",
+        "use": "Record Room"
+      },
+      {
+        "room": "103",
+        "floor": "First Floor",
+        "use": "AIML HOD Office — Sudeep Sharma"
+      },
+      {
+        "room": "110",
+        "floor": "First Floor",
+        "use": "CSE-A Second-Year Classroom"
+      },
+      {
+        "room": "111",
+        "floor": "First Floor",
+        "use": "CSE-B Second-Year Classroom"
+      },
+      {
+        "room": "112",
+        "floor": "First Floor",
+        "use": "Staff Room"
+      },
+      {
+        "room": "113",
+        "floor": "First Floor",
+        "use": "CSE HOD Office — Dr. Ruchi Kshatri Patel"
+      },
+      {
+        "room": "114",
+        "floor": "First Floor",
+        "use": "AIML Second-Year Classroom"
+      },
+      {
+        "room": "115",
+        "floor": "First Floor",
+        "use": "AIML Second-Year Classroom"
+      },
+      {
+        "room": "116",
+        "floor": "First Floor",
+        "use": "Smart Classroom"
+      },
+      {
+        "room": "117",
+        "floor": "First Floor",
+        "use": "AIML Third-Year Classroom"
+      },
+      {
+        "room": "118",
+        "floor": "First Floor",
+        "use": "CSE-B Third-Year Classroom"
+      },
+      {
+        "room": "119",
+        "floor": "First Floor",
+        "use": "Lab-7"
+      },
+      {
+        "room": "121",
+        "floor": "First Floor",
+        "use": "Exam Cell"
+      },
+      {
+        "room": "122",
+        "floor": "First Floor",
+        "use": "Strong Room"
+      }
+    ],
+    "second_floor": [
+      {
+        "room": "215",
+        "floor": "Second Floor",
+        "use": "CSE-A Third-Year Classroom"
+      },
+      {
+        "room": "218",
+        "floor": "Second Floor",
+        "use": "Seminar Hall"
+      }
+    ],
+    "third_floor": [
+      {
+        "room": null,
+        "floor": "Third Floor",
+        "use": "MBA Department",
+        "notes": "Specific room number not supplied."
+      }
+    ]
+  },
+  "classrooms": [
+    {
+      "id": "CLS001",
+      "branch": "CSE",
+      "year": "First-Year",
+      "rooms": [
+        "04",
+        "05",
+        "06"
+      ],
+      "floor": "Ground Floor"
+    },
+    {
+      "id": "CLS002",
+      "branch": "AIML",
+      "year": "First-Year",
+      "rooms": [
+        "15",
+        "16"
+      ],
+      "floor": "Ground Floor"
+    },
+    {
+      "id": "CLS003",
+      "branch": "IoT",
+      "year": "First-Year",
+      "rooms": [
+        "18"
+      ],
+      "floor": "Ground Floor"
+    },
+    {
+      "id": "CLS004",
+      "branch": "CSE-A",
+      "year": "Second-Year",
+      "rooms": [
+        "110"
+      ],
+      "floor": "First Floor"
+    },
+    {
+      "id": "CLS005",
+      "branch": "CSE-B",
+      "year": "Second-Year",
+      "rooms": [
+        "111"
+      ],
+      "floor": "First Floor"
+    },
+    {
+      "id": "CLS006",
+      "branch": "AIML",
+      "year": "Second-Year",
+      "rooms": [
+        "114",
+        "115"
+      ],
+      "floor": "First Floor"
+    },
+    {
+      "id": "CLS007",
+      "branch": "AIML",
+      "year": "Third-Year",
+      "rooms": [
+        "117"
+      ],
+      "floor": "First Floor",
+      "incharge": [
+        "Prof. Ankit Kachhi",
+        "Prof. Vikas Dhanwani"
+      ],
+      "notes": "Incharge faculty: Prof. Ankit Kachhi and Prof. Vikas Dhanwani."
+    },
+    {
+      "id": "CLS008",
+      "branch": "CSE-B",
+      "year": "Third-Year",
+      "rooms": [
+        "118"
+      ],
+      "floor": "First Floor"
+    },
+    {
+      "id": "CLS009",
+      "branch": "CSE-A",
+      "year": "Third-Year",
+      "rooms": [
+        "215"
+      ],
+      "floor": "Second Floor"
+    },
+    {
+      "id": "CLS010",
+      "branch": "Fourth-Year",
+      "year": "Fourth-Year",
+      "rooms": [],
+      "floor": null,
+      "notes": "No verified Fourth-Year classroom room number or floor is available in the supplied records."
+    }
+  ],
+  "labs": [
+    {
+      "id": "LAB001",
+      "name": "Basic Electrical & Electronics Lab",
+      "room": "07",
+      "floor": "Ground Floor"
+    },
+    {
+      "id": "LAB002",
+      "name": "Basic Computer Engineering Lab-1",
+      "room": "08",
+      "floor": "Ground Floor"
+    },
+    {
+      "id": "LAB003",
+      "name": "Language / Communication Skills Lab",
+      "room": "09",
+      "floor": "Ground Floor"
+    },
+    {
+      "id": "LAB004",
+      "name": "Engineering Physics Lab",
+      "room": "19",
+      "floor": "Ground Floor",
+      "notes": "Also associated with First-Year HOD Dr. M.S. Khan."
+    },
+    {
+      "id": "LAB005",
+      "name": "Engineering Chemistry Lab",
+      "room": "20",
+      "floor": "Ground Floor"
+    },
+    {
+      "id": "LAB006",
+      "name": "Lab-7",
+      "room": "119",
+      "floor": "First Floor"
+    }
+  ],
+  "facilities": [
+    {
+      "id": "FAC_LIB",
+      "name": "Library",
+      "room": "10",
+      "floor": "Ground Floor"
+    },
+    {
+      "id": "FAC_GR",
+      "name": "Girls Room",
+      "room": "11",
+      "floor": "Ground Floor"
+    },
+    {
+      "id": "FAC_SR_GF",
+      "name": "Staff Room (Ground Floor)",
+      "room": "21",
+      "floor": "Ground Floor"
+    },
+    {
+      "id": "FAC_SR_1F",
+      "name": "Staff Room (First Floor)",
+      "room": "112",
+      "floor": "First Floor"
+    },
+    {
+      "id": "FAC_SC",
+      "name": "Smart Classroom",
+      "room": "116",
+      "floor": "First Floor"
+    },
+    {
+      "id": "FAC_SH",
+      "name": "Seminar Hall",
+      "room": "218",
+      "floor": "Second Floor"
+    }
+  ],
+  "departments_detail": [
+    {
+      "id": "DEPT001",
+      "name": "B.Tech",
+      "branches": [
+        "CSE",
+        "AIML",
+        "IoT"
+      ],
+      "floors": [
+        "Ground Floor",
+        "First Floor",
+        "Second Floor"
+      ]
+    },
+    {
+      "id": "DEPT002",
+      "name": "MBA",
+      "branches": [],
+      "floor": "Third Floor",
+      "room": null,
+      "notes": "Specific room number not supplied."
+    }
+  ],
+  "data_quality_notes": [
+    "The latest owner correction is AIML HOD Sudeep Sharma; this document follows that correction instead of older conflicting notes.",
+    "The CSE HOD is Dr. Ruchi Kshatri Patel, office Room 113, First Floor.",
+    "Room 19 is associated with both the Engineering Physics Lab and First-Year HOD Dr. M.S. Khan. The exact room arrangement is not clarified.",
+    "Room 12 is described as TPO / PRO and Public Relations Officer. Confirm the exact designation before official publication.",
+    "A broad earlier note associated Rooms 104–110 with labs / other classroom allocations. Room 110 is specifically recorded as CSE-A Second Year; the other rooms in that range are not individually identified here.",
+    "No verified Fourth-Year classroom room number or floor is available in the supplied records.",
+    "The principal's name is Dr. Sameer Vaidya, located in Room 01, Ground Floor.",
+    "Specific walking routes, staircase locations and corridor directions have not been verified; the chatbot must not invent them.",
+    "The incharges for AIML Third Year are Prof. Ankit Kachhi and Prof. Vikas Dhanwani."
+  ],
+  "faq": [
+    {
+      "id": "Q1",
+      "question": "What is the name of the institute?",
+      "answer": "Shri Ram Institute of Science & Technology (SRIST)."
+    },
+    {
+      "id": "Q2",
+      "question": "What is Shri Campus AI?",
+      "answer": "A campus information assistant intended to help SRIST students find details about departments, faculty, classrooms, offices, labs and facilities."
+    },
+    {
+      "id": "Q3",
+      "question": "Which departments are recorded?",
+      "answer": "B.Tech and MBA."
+    },
+    {
+      "id": "Q4",
+      "question": "Which floors are included in the campus records?",
+      "answer": "Ground, First, Second and Third Floor."
+    },
+    {
+      "id": "Q5",
+      "question": "Where is the MBA Department?",
+      "answer": "On the Third Floor. A specific room number has not been supplied."
+    },
+    {
+      "id": "Q6",
+      "question": "Who is the AIML HOD?",
+      "answer": "Sudeep Sharma."
+    },
+    {
+      "id": "Q7",
+      "question": "Where is the AIML HOD office?",
+      "answer": "Room 103, First Floor."
+    },
+    {
+      "id": "Q8",
+      "question": "Who is the CSE HOD?",
+      "answer": "Dr. Ruchi Kshatri Patel."
+    },
+    {
+      "id": "Q9",
+      "question": "Where is the CSE HOD office?",
+      "answer": "Room 113, First Floor."
+    },
+    {
+      "id": "Q10",
+      "question": "Who is the First-Year HOD?",
+      "answer": "Dr. M.S. Khan."
+    },
+    {
+      "id": "Q11",
+      "question": "Where is the First-Year HOD office?",
+      "answer": "Room 19, Ground Floor. This room is also associated with the Engineering Physics Lab."
+    },
+    {
+      "id": "Q12",
+      "question": "Who is the principal?",
+      "answer": "Dr. Sameer Vaidya is the Principal of Shri Ram Institute of Science & Technology (SRIST). His office is located in Room 01 on the Ground Floor."
+    },
+    {
+      "id": "Q13",
+      "question": "Where is the Principal's Office?",
+      "answer": "Room 01, Ground Floor."
+    },
+    {
+      "id": "Q14",
+      "question": "Where is the Accounts Office?",
+      "answer": "Room 03, Ground Floor."
+    },
+    {
+      "id": "Q15",
+      "question": "Where is the library?",
+      "answer": "Room 10, Ground Floor."
+    },
+    {
+      "id": "Q16",
+      "question": "Where is the TPO / PRO office?",
+      "answer": "Room 12, Ground Floor. The exact designation needs confirmation."
+    },
+    {
+      "id": "Q17",
+      "question": "Where is the Public Relations Officer's office?",
+      "answer": "Room 12, Ground Floor, according to the earlier supplied record."
+    },
+    {
+      "id": "Q18",
+      "question": "Where is the Girls Room?",
+      "answer": "Room 11, Ground Floor."
+    },
+    {
+      "id": "Q19",
+      "question": "Where is the Engineering Physics Lab?",
+      "answer": "Room 19, Ground Floor."
+    },
+    {
+      "id": "Q20",
+      "question": "Where is the Engineering Chemistry Lab?",
+      "answer": "Room 20, Ground Floor."
+    },
+    {
+      "id": "Q21",
+      "question": "Where is the Basic Electrical & Electronics Lab?",
+      "answer": "Room 07, Ground Floor."
+    },
+    {
+      "id": "Q22",
+      "question": "Where is Basic Computer Engineering Lab-1?",
+      "answer": "Room 08, Ground Floor."
+    },
+    {
+      "id": "Q23",
+      "question": "Where is the Language / Communication Skills Lab?",
+      "answer": "Room 09, Ground Floor."
+    },
+    {
+      "id": "Q24",
+      "question": "Where is the Record Room?",
+      "answer": "Room 101, First Floor."
+    },
+    {
+      "id": "Q25",
+      "question": "Where is the Smart Classroom?",
+      "answer": "Room 116, First Floor."
+    },
+    {
+      "id": "Q26",
+      "question": "Where is Lab-7?",
+      "answer": "Room 119, First Floor."
+    },
+    {
+      "id": "Q27",
+      "question": "Where is the Exam Cell?",
+      "answer": "Room 121, First Floor."
+    },
+    {
+      "id": "Q28",
+      "question": "Where is the Strong Room?",
+      "answer": "Room 122, First Floor."
+    },
+    {
+      "id": "Q29",
+      "question": "Where is the Seminar Hall?",
+      "answer": "Room 218, Second Floor."
+    },
+    {
+      "id": "Q30",
+      "question": "Where is the Ground Floor Staff Room?",
+      "answer": "Room 21, Ground Floor."
+    },
+    {
+      "id": "Q31",
+      "question": "Where is the First Floor Staff Room?",
+      "answer": "Room 112, First Floor."
+    },
+    {
+      "id": "Q32",
+      "question": "Where are First-Year CSE classrooms?",
+      "answer": "Rooms 04–06, Ground Floor."
+    },
+    {
+      "id": "Q33",
+      "question": "Where are First-Year AIML classrooms?",
+      "answer": "Rooms 15–16, Ground Floor."
+    },
+    {
+      "id": "Q34",
+      "question": "Where is the First-Year IoT classroom?",
+      "answer": "Room 18, Ground Floor."
+    },
+    {
+      "id": "Q35",
+      "question": "Where are Second-Year AIML classrooms?",
+      "answer": "Rooms 114–115, First Floor."
+    },
+    {
+      "id": "Q36",
+      "question": "Where is Second-Year CSE-A?",
+      "answer": "Room 110, First Floor."
+    },
+    {
+      "id": "Q37",
+      "question": "Where is Second-Year CSE-B?",
+      "answer": "Room 111, First Floor."
+    },
+    {
+      "id": "Q38",
+      "question": "Where is Third-Year AIML?",
+      "answer": "Room 117, First Floor."
+    },
+    {
+      "id": "Q39",
+      "question": "Where is Third-Year CSE-B?",
+      "answer": "Room 118, First Floor."
+    },
+    {
+      "id": "Q40",
+      "question": "Where is Third-Year CSE-A?",
+      "answer": "Room 215, Second Floor."
+    },
+    {
+      "id": "Q41",
+      "question": "Where is the Fourth-Year B.Tech classroom?",
+      "answer": "A verified Fourth-Year classroom room number and floor have not been supplied. Please confirm with the department."
+    },
+    {
+      "id": "Q42",
+      "question": "Are all Third-Year CSE sections on the same floor?",
+      "answer": "No. CSE-A is recorded in Room 215 on the Second Floor, while CSE-B is in Room 118 on the First Floor."
+    },
+    {
+      "id": "Q43",
+      "question": "Which floor has the AIML HOD office?",
+      "answer": "First Floor."
+    },
+    {
+      "id": "Q44",
+      "question": "Which floor has the CSE HOD office?",
+      "answer": "First Floor."
+    },
+    {
+      "id": "Q45",
+      "question": "Which floor has the library?",
+      "answer": "Ground Floor."
+    },
+    {
+      "id": "Q46",
+      "question": "Which floor has the Principal's Office?",
+      "answer": "Ground Floor."
+    },
+    {
+      "id": "Q47",
+      "question": "Which floor has the Accounts Office?",
+      "answer": "Ground Floor."
+    },
+    {
+      "id": "Q48",
+      "question": "Which room is associated with Dr. M.S. Khan?",
+      "answer": "Room 19, Ground Floor, associated with the First-Year HOD role and Engineering Physics Lab."
+    },
+    {
+      "id": "Q49",
+      "question": "Which room is associated with Sudeep Sharma?",
+      "answer": "Room 103, First Floor, the AIML HOD office."
+    },
+    {
+      "id": "Q50",
+      "question": "Which room is associated with Dr. Ruchi Kshatri Patel?",
+      "answer": "Room 113, First Floor, the CSE HOD office."
+    },
+    {
+      "id": "Q51",
+      "question": "How do I find CSE-A Third Year?",
+      "answer": "Go to Room 215 on the Second Floor."
+    },
+    {
+      "id": "Q52",
+      "question": "How do I find CSE-B Third Year?",
+      "answer": "Go to Room 118 on the First Floor."
+    },
+    {
+      "id": "Q53",
+      "question": "How do I find AIML Third Year?",
+      "answer": "Go to Room 117 on the First Floor."
+    },
+    {
+      "id": "Q54",
+      "question": "How do I find AIML Second Year?",
+      "answer": "Go to Rooms 114–115 on the First Floor."
+    },
+    {
+      "id": "Q55",
+      "question": "Where are CSE Second-Year sections?",
+      "answer": "CSE-A is in Room 110 and CSE-B is in Room 111, both on the First Floor."
+    },
+    {
+      "id": "Q56",
+      "question": "Where is AIML First Year?",
+      "answer": "Rooms 15–16, Ground Floor."
+    },
+    {
+      "id": "Q57",
+      "question": "Where is CSE First Year?",
+      "answer": "Rooms 04–06, Ground Floor."
+    },
+    {
+      "id": "Q58",
+      "question": "Where is IoT First Year?",
+      "answer": "Room 18, Ground Floor."
+    },
+    {
+      "id": "Q59",
+      "question": "Can Shri Campus AI provide live GPS navigation?",
+      "answer": "No. The current prototype is intended for text-based campus information; live GPS and indoor navigation are not established."
+    },
+    {
+      "id": "Q60",
+      "question": "What should the chatbot do when a room is unknown?",
+      "answer": "It should say the detail is not available or verified and must not guess."
+    },
+    {
+      "id": "Q61",
+      "question": "Can the chatbot tell me the principal's name?",
+      "answer": "Yes, the Principal of SRIST is Dr. Sameer Vaidya, whose office is located in Room 01 on the Ground Floor."
+    },
+    {
+      "id": "Q62",
+      "question": "What is the principal's name?",
+      "answer": "The Principal of Shri Ram Institute of Science & Technology (SRIST) is Dr. Sameer Vaidya. His office is located in Room 01 on the Ground Floor."
+    },
+    {
+      "id": "Q63",
+      "question": "Who is the AIML Third-Year Incharge?",
+      "answer": "The incharges for AIML Third Year are Prof. Ankit Kachhi and Prof. Vikas Dhanwani."
+    },
+    {
+      "id": "Q64",
+      "question": "Who is the incharge of Third-Year AIML?",
+      "answer": "Prof. Ankit Kachhi and Prof. Vikas Dhanwani are the incharges of Third-Year AIML."
+    }
+  ]
+}

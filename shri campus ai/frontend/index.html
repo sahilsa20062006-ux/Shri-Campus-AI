@@ -1,0 +1,2640 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shri Campus AI — Intelligent Assistant for SRIST Jabalpur</title>
+    <meta name="description" content="Official AI Assistant for Shri Ram Institute of Science & Technology (SRIST), Jabalpur. Verified campus directory, classrooms, faculty, and navigation.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        /* ===== MODERN DESIGN SYSTEM ===== */
+        :root {
+            --primary: #071526;
+            --primary-light: #0f2744;
+            --primary-blue: #1e3e62;
+            --accent: #2563eb;
+            --accent-glow: rgba(37, 99, 235, 0.4);
+            --accent-hover: #1d4ed8;
+            --accent-cyan: #06b6d4;
+            --emerald: #10b981;
+            --emerald-glow: rgba(16, 185, 129, 0.35);
+            
+            --bg: #f8fafc;
+            --bg-card: #ffffff;
+            --bg-card-hover: #f1f5f9;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --text-subtle: #94a3b8;
+            --border: #e2e8f0;
+            --border-hover: #cbd5e1;
+            
+            --gradient-hero: linear-gradient(135deg, #071526 0%, #0d223a 45%, #17385c 100%);
+            --gradient-accent: linear-gradient(135deg, #2563eb 0%, #3b82f6 50%, #06b6d4 100%);
+            --gradient-ring: linear-gradient(135deg, #1d4ed8, #06b6d4);
+            --gradient-glass: linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.04) 100%);
+            
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 4px 12px -2px rgba(15, 23, 42, 0.08);
+            --shadow-lg: 0 12px 28px -4px rgba(15, 23, 42, 0.12);
+            --shadow-xl: 0 24px 48px -8px rgba(15, 23, 42, 0.18);
+            --shadow-glow: 0 0 30px var(--accent-glow);
+            
+            --radius-sm: 8px;
+            --radius-md: 14px;
+            --radius-lg: 20px;
+            --radius-xl: 28px;
+            --radius-full: 9999px;
+            
+            --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* ===== RESET & BASE STYLES ===== */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        html {
+            font-size: 16px;
+            scroll-behavior: smooth;
+            -webkit-text-size-adjust: 100%;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            color: var(--text-main);
+            background: var(--bg);
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a { color: inherit; text-decoration: none; }
+        button, input, textarea { font-family: inherit; }
+
+        /* ===== SPLASH SCREEN ===== */
+        #splash {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: var(--gradient-hero);
+            transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.5s;
+        }
+
+        #splash.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .splash-brand-wrap {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 24px;
+        }
+
+        .splash-glow-ring {
+            position: absolute;
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(37, 99, 235, 0.45) 0%, rgba(6, 182, 212, 0) 70%);
+            animation: pulseGlow 2s infinite ease-in-out;
+        }
+
+        .splash-logo-card {
+            width: 88px;
+            height: 88px;
+            border-radius: 50%;
+            background: #ffffff;
+            padding: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), 0 0 0 3px rgba(37, 99, 235, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 1;
+            animation: floatLogo 2s infinite ease-in-out;
+        }
+
+        .splash-logo-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            image-rendering: -webkit-optimize-contrast;
+        }
+
+        #splash h1 {
+            color: #ffffff;
+            font-size: 2.1rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            margin-bottom: 6px;
+            animation: fadeInUp 0.7s ease 0.2s forwards;
+            opacity: 0;
+        }
+
+        #splash p {
+            color: rgba(255, 255, 255, 0.75);
+            font-size: 0.96rem;
+            font-weight: 500;
+            animation: fadeInUp 0.7s ease 0.4s forwards;
+            opacity: 0;
+        }
+
+        .splash-loader {
+            margin-top: 28px;
+            width: 140px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: var(--radius-full);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .splash-loader-bar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 45%;
+            background: var(--gradient-accent);
+            border-radius: var(--radius-full);
+            animation: loadingSlide 1.2s infinite ease-in-out;
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.2); opacity: 0.85; }
+        }
+
+        @keyframes floatLogo {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-6px); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(16px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes loadingSlide {
+            0% { left: -45%; }
+            100% { left: 100%; }
+        }
+
+        /* ===== LANDING PAGE LAYOUT ===== */
+        #landing {
+            display: none;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        #landing.active { display: flex; }
+
+        /* Floating Frosted Glass Navbar */
+        .top-navbar {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 32px;
+            background: rgba(7, 21, 38, 0.88);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+        }
+
+        .nav-logo-box {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: #ffffff;
+            padding: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3), 0 0 0 2px rgba(37, 99, 235, 0.6);
+            transition: var(--transition);
+        }
+
+        .nav-brand:hover .nav-logo-box {
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.6), 0 0 0 2px #38bdf8;
+        }
+
+        .nav-logo-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 50%;
+            image-rendering: -webkit-optimize-contrast;
+        }
+
+        .nav-title-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .nav-title {
+            color: #ffffff;
+            font-size: 1.15rem;
+            font-weight: 800;
+            letter-spacing: -0.3px;
+            line-height: 1.2;
+        }
+
+        .nav-sub {
+            color: #94a3b8;
+            font-size: 0.76rem;
+            font-weight: 500;
+            letter-spacing: 0.2px;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .nav-status-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(16, 185, 129, 0.12);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            color: #34d399;
+            padding: 6px 14px;
+            border-radius: var(--radius-full);
+            font-size: 0.78rem;
+            font-weight: 600;
+        }
+
+        .pulse-beacon {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #10b981;
+            box-shadow: 0 0 8px #10b981;
+            animation: pulseBeacon 1.8s infinite;
+        }
+
+        @keyframes pulseBeacon {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 7px rgba(16, 185, 129, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+        }
+
+        .nav-chat-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 9px 18px;
+            border-radius: var(--radius-full);
+            background: var(--gradient-accent);
+            color: #ffffff;
+            font-size: 0.86rem;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.4);
+            transition: var(--transition);
+        }
+
+        .nav-chat-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.6);
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero-section {
+            background: var(--gradient-hero);
+            color: #ffffff;
+            padding: 72px 24px 84px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-bg-shapes {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .hero-blob-1 {
+            position: absolute;
+            top: -15%;
+            left: 20%;
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(37, 99, 235, 0.22) 0%, rgba(0, 0, 0, 0) 70%);
+            filter: blur(40px);
+        }
+
+        .hero-blob-2 {
+            position: absolute;
+            bottom: -10%;
+            right: 15%;
+            width: 450px;
+            height: 450px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(6, 182, 212, 0.18) 0%, rgba(0, 0, 0, 0) 70%);
+            filter: blur(40px);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .hero-badge-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            padding: 6px 16px;
+            border-radius: var(--radius-full);
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: #93c5fd;
+            margin-bottom: 24px;
+            backdrop-filter: blur(6px);
+        }
+
+        /* Hero Logo Showcase Frame */
+        .hero-logo-showcase {
+            width: 94px;
+            height: 94px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            background: #ffffff;
+            padding: 8px;
+            box-shadow: 0 14px 34px rgba(0, 0, 0, 0.4), 0 0 0 4px rgba(37, 99, 235, 0.45);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .hero-logo-showcase:hover {
+            transform: scale(1.06) rotate(3deg);
+            box-shadow: 0 18px 40px rgba(37, 99, 235, 0.5), 0 0 0 4px #38bdf8;
+        }
+
+        .hero-logo-showcase img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 50%;
+            image-rendering: -webkit-optimize-contrast;
+        }
+
+        .hero-title {
+            font-size: 2.95rem;
+            font-weight: 800;
+            line-height: 1.15;
+            letter-spacing: -1.2px;
+            margin-bottom: 18px;
+        }
+
+        .hero-title .text-gradient {
+            background: linear-gradient(135deg, #60a5fa 0%, #93c5fd 50%, #ffffff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-desc {
+            font-size: 1.12rem;
+            color: rgba(255, 255, 255, 0.85);
+            max-width: 680px;
+            margin: 0 auto 34px;
+            line-height: 1.65;
+            font-weight: 400;
+        }
+
+        /* Hero Instant Ask Box (Search-style input) */
+        .hero-search-container {
+            max-width: 660px;
+            margin: 0 auto 32px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1.5px solid rgba(255, 255, 255, 0.22);
+            border-radius: var(--radius-xl);
+            padding: 6px 8px 6px 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 12px 36px rgba(0, 0, 0, 0.35);
+            backdrop-filter: blur(12px);
+            transition: var(--transition);
+        }
+
+        .hero-search-container:focus-within {
+            border-color: #60a5fa;
+            background: rgba(255, 255, 255, 0.14);
+            box-shadow: 0 14px 40px rgba(37, 99, 235, 0.45);
+        }
+
+        .hero-search-icon {
+            color: #93c5fd;
+            display: flex;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .hero-search-input {
+            flex: 1;
+            background: none;
+            border: none;
+            outline: none;
+            color: #ffffff;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        .hero-search-input::placeholder {
+            color: rgba(255, 255, 255, 0.55);
+        }
+
+        .hero-search-btn {
+            background: var(--gradient-accent);
+            color: #ffffff;
+            border: none;
+            border-radius: var(--radius-full);
+            padding: 12px 24px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.4);
+            transition: var(--transition);
+            flex-shrink: 0;
+        }
+
+        .hero-search-btn:hover {
+            transform: scale(1.03);
+            box-shadow: 0 6px 18px rgba(37, 99, 235, 0.55);
+        }
+
+        /* Quick Suggestions Chips Under Hero Input */
+        .hero-quick-chips {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+        }
+
+        .hero-quick-chip {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            color: rgba(255, 255, 255, 0.85);
+            padding: 6px 14px;
+            border-radius: var(--radius-full);
+            font-size: 0.78rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            backdrop-filter: blur(4px);
+        }
+
+        .hero-quick-chip:hover {
+            background: rgba(37, 99, 235, 0.35);
+            border-color: #60a5fa;
+            color: #ffffff;
+            transform: translateY(-2px);
+        }
+
+        /* Hero Interactive Chat Card Preview */
+        .hero-preview-card {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            border-radius: var(--radius-lg);
+            padding: 20px;
+            max-width: 660px;
+            margin: 0 auto;
+            text-align: left;
+            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.35);
+            backdrop-filter: blur(10px);
+        }
+
+        .preview-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .preview-badge {
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: #38bdf8;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .preview-mock-chat {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .preview-msg {
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+        }
+
+        .preview-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 0.8rem;
+        }
+
+        .preview-avatar.user {
+            background: #334155;
+            color: #ffffff;
+        }
+
+        .preview-avatar.bot {
+            background: #ffffff;
+            padding: 3px;
+            border: 1.5px solid #38bdf8;
+        }
+
+        .preview-avatar.bot img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 50%;
+        }
+
+        .preview-bubble {
+            padding: 10px 14px;
+            border-radius: var(--radius-md);
+            font-size: 0.88rem;
+            line-height: 1.55;
+        }
+
+        .preview-bubble.user {
+            background: rgba(255, 255, 255, 0.15);
+            color: #ffffff;
+            border-bottom-left-radius: 4px;
+        }
+
+        .preview-bubble.bot {
+            background: #ffffff;
+            color: #0f172a;
+            border-bottom-left-radius: 4px;
+        }
+
+        .preview-bubble.bot strong {
+            color: #1e3a8a;
+        }
+
+        /* ===== METRICS STRIP ===== */
+        .metrics-strip {
+            background: #ffffff;
+            border-bottom: 1px solid var(--border);
+            padding: 30px 24px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .metrics-grid {
+            max-width: 1080px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            text-align: center;
+        }
+
+        .metric-item {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .metric-value {
+            font-size: 1.85rem;
+            font-weight: 800;
+            color: var(--primary);
+            letter-spacing: -0.5px;
+        }
+
+        .metric-label {
+            font-size: 0.84rem;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        /* ===== COMMON SECTION WRAPPERS ===== */
+        .section-wrap {
+            max-width: 1120px;
+            margin: 0 auto;
+            padding: 72px 24px;
+            width: 100%;
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 640px;
+            margin: 0 auto 48px;
+        }
+
+        .section-tag {
+            display: inline-block;
+            background: rgba(37, 99, 235, 0.1);
+            color: var(--accent);
+            font-size: 0.78rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            padding: 4px 12px;
+            border-radius: var(--radius-full);
+            margin-bottom: 10px;
+        }
+
+        .section-title {
+            font-size: 2.15rem;
+            font-weight: 800;
+            color: var(--primary);
+            letter-spacing: -0.6px;
+            line-height: 1.25;
+            margin-bottom: 12px;
+        }
+
+        .section-desc {
+            font-size: 1rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        /* ===== FEATURES GRID ===== */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
+        }
+
+        .feature-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 30px;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--accent-light);
+        }
+
+        .feature-icon-box {
+            width: 52px;
+            height: 52px;
+            border-radius: var(--radius-md);
+            background: rgba(37, 99, 235, 0.08);
+            border: 1px solid rgba(37, 99, 235, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            color: var(--accent);
+        }
+
+        .feature-card h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary);
+            letter-spacing: -0.3px;
+        }
+
+        .feature-card p {
+            font-size: 0.92rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        /* ===== INTERACTIVE QUESTIONS SECTION ===== */
+        .questions-section {
+            background: #f1f5f9;
+            padding: 72px 24px;
+        }
+
+        .questions-grid {
+            max-width: 1120px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px;
+        }
+
+        .question-card {
+            background: #ffffff;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 18px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .question-card:hover {
+            transform: translateY(-2px);
+            border-color: var(--accent);
+            box-shadow: var(--shadow-md);
+            background: #ffffff;
+        }
+
+        .question-card-left {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .q-icon {
+            font-size: 1.3rem;
+            flex-shrink: 0;
+        }
+
+        .q-text {
+            font-size: 0.92rem;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .q-arrow {
+            color: var(--accent);
+            font-size: 1.1rem;
+            font-weight: 700;
+            transition: var(--transition);
+        }
+
+        .question-card:hover .q-arrow {
+            transform: translateX(4px);
+        }
+
+        /* ===== CAMPUS DIRECTORY PREVIEW TABS ===== */
+        .directory-box {
+            background: #ffffff;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            overflow: hidden;
+            margin-top: 36px;
+        }
+
+        .floor-tabs {
+            display: flex;
+            background: #f8fafc;
+            border-bottom: 1px solid var(--border);
+            overflow-x: auto;
+        }
+
+        .floor-tab {
+            padding: 16px 28px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            border: none;
+            background: none;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: var(--transition);
+            white-space: nowrap;
+        }
+
+        .floor-tab:hover {
+            color: var(--primary);
+        }
+
+        .floor-tab.active {
+            color: var(--accent);
+            border-bottom-color: var(--accent);
+            background: #ffffff;
+        }
+
+        .floor-tab-content {
+            padding: 30px;
+            display: none;
+        }
+
+        .floor-tab-content.active { display: block; }
+
+        .floor-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 16px;
+        }
+
+        .floor-item-card {
+            padding: 14px 18px;
+            border-radius: var(--radius-md);
+            background: #f8fafc;
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .floor-item-card:hover {
+            background: #ffffff;
+            border-color: var(--accent);
+            box-shadow: var(--shadow-sm);
+            transform: translateY(-2px);
+        }
+
+        .room-badge {
+            background: var(--primary);
+            color: #ffffff;
+            font-size: 0.78rem;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-family: 'JetBrains Mono', monospace;
+            white-space: nowrap;
+        }
+
+        .room-desc {
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        /* ===== BOTTOM CTA ===== */
+        .bottom-cta-banner {
+            background: var(--gradient-hero);
+            border-radius: var(--radius-lg);
+            padding: 60px 30px;
+            text-align: center;
+            color: #ffffff;
+            margin: 0 auto;
+            max-width: 980px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow-xl);
+        }
+
+        .bottom-cta-banner h2 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            letter-spacing: -0.6px;
+            margin-bottom: 12px;
+        }
+
+        .bottom-cta-banner p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.05rem;
+            max-width: 540px;
+            margin: 0 auto 30px;
+        }
+
+        /* ===== FOOTER ===== */
+        .landing-footer {
+            background: #ffffff;
+            border-top: 1px solid var(--border);
+            padding: 44px 24px;
+        }
+
+        .footer-container {
+            max-width: 1120px;
+            margin: 0 auto;
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 36px;
+            flex-wrap: wrap;
+        }
+
+        /* Developer Credits on Left Bottom */
+        .footer-dev-col {
+            flex: 1;
+            min-width: 290px;
+            background: #f8fafc;
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 18px 22px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .footer-dev-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.84rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.7px;
+            color: var(--accent);
+            margin-bottom: 12px;
+        }
+
+        .footer-dev-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-bottom: 10px;
+        }
+
+        .footer-dev-list li {
+            font-size: 0.92rem;
+            font-weight: 600;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer-dev-list li .dev-num {
+            color: var(--accent);
+            font-weight: 700;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            background: rgba(37, 99, 235, 0.08);
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        .footer-dev-dept {
+            font-size: 0.76rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .footer-info-col {
+            flex: 1.5;
+            min-width: 300px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .footer-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        .footer-logo {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            background: #ffffff;
+            padding: 3px;
+            border: 1.5px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .footer-logo img { width: 100%; height: 100%; object-fit: contain; border-radius: 50%; }
+
+        .footer-title {
+            font-size: 1.05rem;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        .footer-info {
+            font-size: 0.86rem;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            line-height: 1.5;
+        }
+
+        .footer-credit {
+            font-size: 0.78rem;
+            color: var(--text-subtle);
+            font-weight: 500;
+        }
+
+        /* Floating Developer Credit Badge (Bottom Left) */
+        .floating-dev-badge {
+            position: fixed;
+            bottom: 28px;
+            left: 28px;
+            z-index: 900;
+            background: rgba(7, 21, 38, 0.94);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1.5px solid rgba(255, 255, 255, 0.18);
+            border-radius: var(--radius-md);
+            padding: 12px 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35), 0 0 15px rgba(37, 99, 235, 0.25);
+            color: #ffffff;
+            transition: var(--transition);
+        }
+
+        .floating-dev-badge:hover {
+            border-color: rgba(96, 165, 250, 0.8);
+            box-shadow: 0 14px 40px rgba(37, 99, 235, 0.45);
+            transform: translateY(-2px);
+        }
+
+        .floating-dev-header {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.74rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            color: #60a5fa;
+            margin-bottom: 6px;
+        }
+
+        .floating-dev-names {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #f1f5f9;
+            line-height: 1.45;
+        }
+
+        .floating-dev-names span {
+            display: block;
+        }
+
+        @media (max-width: 860px) {
+            .floating-dev-badge {
+                display: none;
+            }
+        }
+
+        /* ===== FLOATING ACTION BUTTON (FAB) ON LANDING PAGE ===== */
+        .floating-chat-fab {
+            position: fixed;
+            bottom: 28px;
+            right: 28px;
+            z-index: 900;
+            background: linear-gradient(135deg, #071526 0%, #1e3e62 100%);
+            border: 2px solid rgba(59, 130, 246, 0.6);
+            border-radius: var(--radius-full);
+            padding: 8px 18px 8px 10px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), 0 0 20px rgba(37, 99, 235, 0.4);
+            cursor: pointer;
+            transition: var(--transition);
+            backdrop-filter: blur(8px);
+        }
+
+        .floating-chat-fab:hover {
+            transform: translateY(-4px) scale(1.03);
+            border-color: #38bdf8;
+            box-shadow: 0 14px 40px rgba(37, 99, 235, 0.6), 0 0 25px rgba(6, 182, 212, 0.5);
+        }
+
+        .fab-avatar-wrap {
+            position: relative;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #ffffff;
+            padding: 3px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            flex-shrink: 0;
+        }
+
+        .fab-avatar-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 50%;
+        }
+
+        .fab-beacon {
+            position: absolute;
+            bottom: -1px;
+            right: -1px;
+            width: 11px;
+            height: 11px;
+            border-radius: 50%;
+            background: #10b981;
+            border: 2px solid #071526;
+        }
+
+        .fab-text {
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+        }
+
+        .fab-title {
+            color: #ffffff;
+            font-size: 0.88rem;
+            font-weight: 800;
+            letter-spacing: -0.2px;
+        }
+
+        .fab-sub {
+            color: #38bdf8;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+
+        .fab-sparkle {
+            color: #fbbf24;
+            font-size: 1rem;
+            margin-left: 2px;
+        }
+
+        /* ===== CHAT APPLICATION VIEW ===== */
+        #chat {
+            display: none;
+            height: 100vh;
+            flex-direction: column;
+            background: #f8fafc;
+        }
+
+        #chat.active { display: flex; }
+
+        /* Sleek Chat Header */
+        .chat-header {
+            background: #071526;
+            color: #ffffff;
+            padding: 12px 24px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            flex-shrink: 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            z-index: 50;
+        }
+
+        .chat-back-btn {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #ffffff;
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            flex-shrink: 0;
+        }
+
+        .chat-back-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateX(-2px);
+        }
+
+        /* Chat Header Logo Card */
+        .chat-header-logo-card {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: #ffffff;
+            padding: 4px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3), 0 0 0 2px rgba(37, 99, 235, 0.6);
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .chat-header-logo-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 50%;
+            image-rendering: -webkit-optimize-contrast;
+        }
+
+        .chat-header-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .chat-header-info h2 {
+            font-size: 1.05rem;
+            font-weight: 800;
+            letter-spacing: -0.3px;
+            line-height: 1.2;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .chat-header-status {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.74rem;
+            color: #94a3b8;
+            font-weight: 500;
+            margin-top: 1px;
+        }
+
+        .chat-status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: var(--radius-full);
+            background: var(--emerald);
+        }
+
+        .chat-status-dot.offline { background: #ef4444; }
+
+        .chat-header-tools {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .chat-tool-btn {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: rgba(255, 255, 255, 0.85);
+            padding: 6px 14px;
+            border-radius: var(--radius-full);
+            font-size: 0.78rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: var(--transition);
+        }
+
+        .chat-tool-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            color: #ffffff;
+        }
+
+        /* Location Toolbar */
+        .chat-location-strip {
+            background: #ffffff;
+            border-bottom: 1px solid var(--border);
+            padding: 9px 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-shrink: 0;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+        }
+
+        .loc-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--accent);
+            white-space: nowrap;
+        }
+
+        .chat-location-input {
+            flex: 1;
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 7px 14px;
+            font-size: 0.86rem;
+            outline: none;
+            transition: var(--transition);
+            background: #f8fafc;
+        }
+
+        .chat-location-input:focus {
+            border-color: var(--accent);
+            background: #ffffff;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .quick-loc-chips {
+            display: flex;
+            gap: 6px;
+            overflow-x: auto;
+        }
+
+        .loc-chip {
+            padding: 4px 10px;
+            border-radius: var(--radius-full);
+            background: #f1f5f9;
+            border: 1px solid var(--border);
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            cursor: pointer;
+            white-space: nowrap;
+            transition: var(--transition);
+        }
+
+        .loc-chip:hover {
+            background: #e2e8f0;
+            color: var(--primary);
+        }
+
+        /* Error Notification Banner */
+        .error-notification {
+            display: none;
+            background: #fef2f2;
+            border-bottom: 1px solid #fecaca;
+            color: #b91c1c;
+            padding: 10px 24px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .error-notification.visible { display: flex; }
+
+        .error-notification button {
+            background: #ef4444;
+            color: #ffffff;
+            border: none;
+            padding: 4px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.78rem;
+            font-weight: 600;
+        }
+
+        /* Messages Area */
+        .chat-messages-container {
+            flex: 1;
+            overflow-y: auto;
+            padding: 24px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 22px;
+            scroll-behavior: smooth;
+        }
+
+        .chat-msg-row {
+            display: flex;
+            gap: 14px;
+            max-width: 840px;
+            width: 100%;
+            animation: fadeInMsg 0.3s ease;
+        }
+
+        .chat-msg-row.user {
+            align-self: flex-end;
+            flex-direction: row-reverse;
+            max-width: 75%;
+        }
+
+        .chat-msg-row.bot {
+            align-self: flex-start;
+        }
+
+        /* ===== POLISHED CHAT AVATARS ===== */
+        .msg-avatar-card {
+            position: relative;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Bot Avatar: Gradient Ring + Crisp College Crest + AI Sparkle Badge */
+        .chat-msg-row.bot .msg-avatar-card {
+            background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+            padding: 2.5px;
+            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.25);
+        }
+
+        .msg-avatar-inner {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            padding: 4px;
+        }
+
+        .msg-avatar-inner img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 50%;
+            image-rendering: -webkit-optimize-contrast;
+        }
+
+        /* Micro Sparkle Indicator on Bot Avatar */
+        .avatar-ai-sparkle {
+            position: absolute;
+            bottom: -2px;
+            right: -2px;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #2563eb, #06b6d4);
+            border: 2px solid #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            font-size: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
+        }
+
+        /* User Avatar: Stylish Modern Gradient */
+        .chat-msg-row.user .msg-avatar-card {
+            background: linear-gradient(135deg, #071526, #1e3e62);
+            color: #ffffff;
+            box-shadow: 0 3px 10px rgba(7, 21, 38, 0.2);
+            border: 2px solid #ffffff;
+        }
+
+        .msg-body-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            max-width: calc(100% - 58px);
+        }
+
+        .msg-sender-meta {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .bot-name-label {
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .verified-badge-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            background: rgba(37, 99, 235, 0.08);
+            border: 1px solid rgba(37, 99, 235, 0.22);
+            color: var(--accent);
+            padding: 2px 8px;
+            border-radius: var(--radius-full);
+            font-size: 0.7rem;
+            font-weight: 700;
+        }
+
+        .ai-model-tag {
+            background: #f1f5f9;
+            color: #64748b;
+            padding: 2px 7px;
+            border-radius: 4px;
+            font-size: 0.68rem;
+            font-weight: 600;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .chat-bubble {
+            padding: 15px 19px;
+            border-radius: var(--radius-md);
+            font-size: 0.94rem;
+            line-height: 1.65;
+            word-wrap: break-word;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .chat-msg-row.user .chat-bubble {
+            background: var(--primary);
+            color: #ffffff;
+            border-bottom-right-radius: 4px;
+        }
+
+        .chat-msg-row.bot .chat-bubble {
+            background: #ffffff;
+            color: var(--text-main);
+            border: 1px solid var(--border);
+            border-bottom-left-radius: 4px;
+        }
+
+        .chat-msg-row.bot .chat-bubble strong {
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        /* Message Action Bar (Copy Button) */
+        .msg-action-bar {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 4px;
+        }
+
+        .msg-action-btn {
+            background: none;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-full);
+            padding: 3px 10px;
+            font-size: 0.72rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            transition: var(--transition);
+        }
+
+        .msg-action-btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            background: #f8fafc;
+        }
+
+        .msg-action-btn.copied {
+            background: #ecfdf5;
+            border-color: #a7f3d0;
+            color: #059669;
+        }
+
+        /* Typing Indicator */
+        .typing-indicator-row {
+            display: none;
+            align-items: center;
+            gap: 12px;
+            animation: fadeInMsg 0.3s ease;
+        }
+
+        .typing-indicator-row.active { display: flex; }
+
+        .typing-bubble {
+            background: #ffffff;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            border-bottom-left-radius: 4px;
+            padding: 14px 18px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .typing-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #94a3b8;
+            animation: typingBounce 1.4s infinite ease-in-out;
+        }
+
+        .typing-dot:nth-child(1) { animation-delay: 0s; }
+        .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+        .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+        .typing-label {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            font-weight: 500;
+            margin-left: 6px;
+        }
+
+        @keyframes typingBounce {
+            0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+            30% { transform: translateY(-5px); opacity: 1; }
+        }
+
+        @keyframes fadeInMsg {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Quick Suggestions Chips Above Input Bar */
+        .chat-quick-suggestions {
+            background: #f8fafc;
+            border-top: 1px solid var(--border);
+            padding: 8px 20px;
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            flex-shrink: 0;
+        }
+
+        .chat-suggestion-chip {
+            background: #ffffff;
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            padding: 5px 12px;
+            border-radius: var(--radius-full);
+            font-size: 0.76rem;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: var(--transition);
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+            flex-shrink: 0;
+        }
+
+        .chat-suggestion-chip:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            background: #eff6ff;
+            transform: translateY(-1px);
+        }
+
+        /* Chat Input Bar */
+        .chat-input-bar {
+            background: #ffffff;
+            border-top: 1px solid var(--border);
+            padding: 14px 20px;
+            display: flex;
+            align-items: flex-end;
+            gap: 12px;
+            flex-shrink: 0;
+        }
+
+        .chat-textarea-wrapper {
+            flex: 1;
+            position: relative;
+            background: #f8fafc;
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius-md);
+            transition: var(--transition);
+        }
+
+        .chat-textarea-wrapper:focus-within {
+            border-color: var(--accent);
+            background: #ffffff;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .chat-textarea {
+            width: 100%;
+            border: none;
+            background: transparent;
+            padding: 12px 16px;
+            font-size: 0.94rem;
+            line-height: 1.45;
+            resize: none;
+            max-height: 120px;
+            min-height: 44px;
+            outline: none;
+            color: var(--text-main);
+        }
+
+        .chat-textarea::placeholder { color: #94a3b8; }
+
+        /* Send Button with Icon */
+        .chat-send-btn {
+            width: 46px;
+            height: 46px;
+            border-radius: var(--radius-md);
+            background: var(--gradient-accent);
+            color: #ffffff;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
+            transition: var(--transition);
+            flex-shrink: 0;
+        }
+
+        .chat-send-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 18px rgba(37, 99, 235, 0.5);
+        }
+
+        .chat-send-btn:active { transform: scale(0.96); }
+        .chat-send-btn:disabled {
+            opacity: 0.45;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* ===== RESPONSIVE BREAKPOINTS ===== */
+        @media (max-width: 860px) {
+            .hero-title { font-size: 2.3rem; }
+            .metrics-grid { grid-template-columns: repeat(2, 1fr); }
+            .chat-msg-row.user { max-width: 90%; }
+            .chat-msg-row { max-width: 100%; }
+            .top-navbar { padding: 12px 20px; }
+        }
+
+        @media (max-width: 540px) {
+            html { font-size: 15px; }
+            .top-navbar { padding: 10px 16px; }
+            .nav-status-pill { display: none; }
+            .hero-section { padding: 48px 16px 60px; }
+            .hero-title { font-size: 1.85rem; }
+            .hero-desc { font-size: 0.98rem; }
+            .metrics-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+            .features-grid { grid-template-columns: 1fr; }
+            .questions-grid { grid-template-columns: 1fr; }
+            .floor-tab { padding: 12px 18px; font-size: 0.85rem; }
+            .chat-header { padding: 10px 14px; }
+            .chat-messages-container { padding: 16px 12px; }
+            .chat-input-bar { padding: 12px 14px; }
+            .quick-loc-chips { display: none; }
+            .floating-chat-fab { bottom: 18px; right: 18px; padding: 6px 14px 6px 8px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== SPLASH SCREEN ===== -->
+    <div id="splash">
+        <div class="splash-brand-wrap">
+            <div class="splash-glow-ring"></div>
+            <div class="splash-logo-card">
+                <img src="logo.png" alt="SRIST Official Emblem">
+            </div>
+        </div>
+        <h1>Shri Campus AI</h1>
+        <p>Intelligent College Assistant • SRIST Jabalpur</p>
+        <div class="splash-loader">
+            <div class="splash-loader-bar"></div>
+        </div>
+    </div>
+
+    <!-- ===== LANDING PAGE ===== -->
+    <div id="landing">
+        
+        <!-- Sticky Navbar -->
+        <nav class="top-navbar">
+            <div class="nav-brand" onclick="window.scrollTo({top:0, behavior:'smooth'})">
+                <div class="nav-logo-box">
+                    <img src="logo.png" alt="SRIST Logo">
+                </div>
+                <div class="nav-title-group">
+                    <span class="nav-title">Shri Campus AI</span>
+                    <span class="nav-sub">SRIST Jabalpur</span>
+                </div>
+            </div>
+            <div class="nav-actions">
+                <div class="nav-status-pill">
+                    <span class="pulse-beacon"></span>
+                    <span>Qwen 3.5 Local AI Ready</span>
+                </div>
+                <button class="nav-chat-btn" onclick="openChat()">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                    <span>Start Chat</span>
+                </button>
+            </div>
+        </nav>
+
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="hero-bg-shapes">
+                <div class="hero-blob-1"></div>
+                <div class="hero-blob-2"></div>
+            </div>
+            <div class="hero-content">
+                <div class="hero-badge-pill">
+                    <span>✨ Official Campus Intelligence System • Grounded in Verified Data</span>
+                </div>
+                <div class="hero-logo-showcase">
+                    <img src="logo.png" alt="SRIST Emblem">
+                </div>
+                <h1 class="hero-title">
+                    Navigate SRIST Campus with <br>
+                    <span class="text-gradient">Real AI Intelligence</span>
+                </h1>
+                <p class="hero-desc">
+                    Get instant, accurate information about departments, faculty offices, classrooms, laboratories, and campus directions in English, Hindi, and Hinglish. Powered by private local Qwen LLM.
+                </p>
+
+                <!-- Hero Instant Ask Search Box -->
+                <div class="hero-search-container">
+                    <div class="hero-search-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                    </div>
+                    <input type="text" id="heroPromptInput" class="hero-search-input" placeholder="Ask anything about SRIST (e.g. Who is AIML HOD? Room 103? Library?)" onkeydown="if(event.key==='Enter') submitHeroPrompt()">
+                    <button class="hero-search-btn" onclick="submitHeroPrompt()">
+                        <span>Ask AI</span>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                    </button>
+                </div>
+
+                <!-- Quick Prompts Below Search Box -->
+                <div class="hero-quick-chips">
+                    <span class="hero-quick-chip" onclick="openChatWithQuestion('Who is the AIML HOD?')">👨‍🏫 Who is the AIML HOD?</span>
+                    <span class="hero-quick-chip" onclick="openChatWithQuestion('Where is the Principal\'s office?')">🏛️ Principal's Office</span>
+                    <span class="hero-quick-chip" onclick="openChatWithQuestion('Where is the library?')">📚 Library Location</span>
+                    <span class="hero-quick-chip" onclick="openChatWithQuestion('Where is Third-Year AIML?')">🏫 3rd Year AIML Room</span>
+                    <span class="hero-quick-chip" onclick="openChatWithQuestion('Library kaha hai?')">🇮🇳 Library kaha hai?</span>
+                </div>
+
+                <!-- Hero Interactive Chat Card Preview -->
+                <div class="hero-preview-card">
+                    <div class="preview-header">
+                        <span class="preview-badge">⚡ Live Campus Intelligence Example</span>
+                        <span style="font-size: 0.72rem; color: #94a3b8; font-family: monospace;">SRIST Jabalpur Directory</span>
+                    </div>
+                    <div class="preview-mock-chat">
+                        <div class="preview-msg">
+                            <div class="preview-avatar user">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                            </div>
+                            <div class="preview-bubble user">
+                                Who is the AIML HOD and where is his office?
+                            </div>
+                        </div>
+                        <div class="preview-msg">
+                            <div class="preview-avatar bot">
+                                <img src="logo.png" alt="AI">
+                            </div>
+                            <div class="preview-bubble bot">
+                                The Head of Department (HOD) for AIML is <strong>Prof. Sudeep Sharma</strong>. His office is located in <strong>Room 103 on the First Floor</strong> of the institute building.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Metrics Strip -->
+        <div class="metrics-strip">
+            <div class="metrics-grid">
+                <div class="metric-item">
+                    <span class="metric-value">4 Floors</span>
+                    <span class="metric-label">Ground to 3rd Floor</span>
+                </div>
+                <div class="metric-item">
+                    <span class="metric-value">B.Tech & MBA</span>
+                    <span class="metric-label">Complete Coverage</span>
+                </div>
+                <div class="metric-item">
+                    <span class="metric-value">English & हिंदी</span>
+                    <span class="metric-label">Bilingual AI</span>
+                </div>
+                <div class="metric-item">
+                    <span class="metric-value">Zero Hallucination</span>
+                    <span class="metric-label">100% Verified Records</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Features Section -->
+        <section class="section-wrap" id="features">
+            <div class="section-header">
+                <span class="section-tag">Campus Capabilities</span>
+                <h2 class="section-title">Designed for SRIST Students & Faculty</h2>
+                <p class="section-desc">Experience intelligent, contextual answers to every campus inquiry with zero guesswork.</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon-box">🏛️</div>
+                    <h3>Department Directory</h3>
+                    <p>Comprehensive information on B.Tech (CSE, AIML, IoT) and MBA programs, including their respective floor allocations.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon-box">👨‍🏫</div>
+                    <h3>Faculty & HOD Offices</h3>
+                    <p>Locate AIML HOD (Sudeep Sharma, Room 103), CSE HOD (Dr. Ruchi Kshatri Patel, Room 113), and First-Year HOD (Dr. M.S. Khan, Room 19).</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon-box">🏫</div>
+                    <h3>Classroom Finder</h3>
+                    <p>Instant room allocations across all semesters — First-Year classrooms (04–06, 15–16, 18), Second-Year (110, 111, 114–115), and Third-Year (117, 118, 215).</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon-box">🔬</div>
+                    <h3>Labs & Facilities</h3>
+                    <p>Find Engineering Physics (Room 19), Chemistry (Room 20), BCE Lab-1 (Room 08), BEE Lab (Room 07), Library (Room 10), and Seminar Hall (Room 218).</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon-box">🧭</div>
+                    <h3>Contextual Directions</h3>
+                    <p>Input your starting point (such as Main Entrance Gate) to receive sensible, grounded floor guidance to your destination.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon-box">🌐</div>
+                    <h3>Bilingual Understanding</h3>
+                    <p>Ask naturally in English or Hindi / Hinglish ("Library kaha hai?", "Principal office kis floor par hai?"). The AI speaks your language.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive Questions Grid -->
+        <section class="questions-section">
+            <div class="section-header">
+                <span class="section-tag">Popular Queries</span>
+                <h2 class="section-title">What would you like to know?</h2>
+                <p class="section-desc">Click any card below to open the chat and get an immediate verified answer.</p>
+            </div>
+            
+            <div class="questions-grid">
+                <div class="question-card" onclick="openChatWithQuestion('Who is the AIML HOD?')">
+                    <div class="question-card-left">
+                        <span class="q-icon">👨‍🏫</span>
+                        <span class="q-text">Who is the AIML HOD?</span>
+                    </div>
+                    <span class="q-arrow">→</span>
+                </div>
+                <div class="question-card" onclick="openChatWithQuestion('Where is the library?')">
+                    <div class="question-card-left">
+                        <span class="q-icon">📚</span>
+                        <span class="q-text">Where is the library?</span>
+                    </div>
+                    <span class="q-arrow">→</span>
+                </div>
+                <div class="question-card" onclick="openChatWithQuestion('Where is the Principal\'s office?')">
+                    <div class="question-card-left">
+                        <span class="q-icon">🏛️</span>
+                        <span class="q-text">Where is the Principal's office?</span>
+                    </div>
+                    <span class="q-arrow">→</span>
+                </div>
+                <div class="question-card" onclick="openChatWithQuestion('Where is the CSE HOD office?')">
+                    <div class="question-card-left">
+                        <span class="q-icon">💼</span>
+                        <span class="q-text">Where is the CSE HOD office?</span>
+                    </div>
+                    <span class="q-arrow">→</span>
+                </div>
+                <div class="question-card" onclick="openChatWithQuestion('Where is Third-Year AIML?')">
+                    <div class="question-card-left">
+                        <span class="q-icon">🏫</span>
+                        <span class="q-text">Where is Third-Year AIML?</span>
+                    </div>
+                    <span class="q-arrow">→</span>
+                </div>
+                <div class="question-card" onclick="openChatWithQuestion('Where is the MBA department?')">
+                    <div class="question-card-left">
+                        <span class="q-icon">🎓</span>
+                        <span class="q-text">Where is the MBA department?</span>
+                    </div>
+                    <span class="q-arrow">→</span>
+                </div>
+                <div class="question-card" onclick="openChatWithQuestion('Library kaha hai?')">
+                    <div class="question-card-left">
+                        <span class="q-icon">🇮🇳</span>
+                        <span class="q-text">Library kaha hai?</span>
+                    </div>
+                    <span class="q-arrow">→</span>
+                </div>
+                <div class="question-card" onclick="openChatWithQuestion('Principal office kis floor par hai?')">
+                    <div class="question-card-left">
+                        <span class="q-icon">📍</span>
+                        <span class="q-text">Principal office kis floor par hai?</span>
+                    </div>
+                    <span class="q-arrow">→</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Campus Floor Directory Preview -->
+        <section class="section-wrap">
+            <div class="section-header">
+                <span class="section-tag">Campus Directory at a Glance</span>
+                <h2 class="section-title">Explore by Floor</h2>
+                <p class="section-desc">Quick overview of key offices and rooms mapped across SRIST building floors. Click any room to ask the AI.</p>
+            </div>
+            
+            <div class="directory-box">
+                <div class="floor-tabs">
+                    <button class="floor-tab active" onclick="switchFloorTab('gf')">Ground Floor</button>
+                    <button class="floor-tab" onclick="switchFloorTab('ff')">First Floor</button>
+                    <button class="floor-tab" onclick="switchFloorTab('sf')">Second Floor</button>
+                    <button class="floor-tab" onclick="switchFloorTab('tf')">Third Floor</button>
+                </div>
+                
+                <!-- Ground Floor -->
+                <div class="floor-tab-content active" id="tab-gf">
+                    <div class="floor-grid">
+                        <div class="floor-item-card" onclick="openChatWithQuestion('Where is Room 01?')">
+                            <span class="room-badge">Room 01</span>
+                            <span class="room-desc">Principal's Office (Dr. Sameer Vaidya)</span>
+                        </div>
+                        <div class="floor-item-card" onclick="openChatWithQuestion('Where is Room 03?')">
+                            <span class="room-badge">Room 03</span>
+                            <span class="room-desc">Accounts Office</span>
+                        </div>
+                        <div class="floor-item-card" onclick="openChatWithQuestion('Where is Room 10?')">
+                            <span class="room-badge">Room 10</span>
+                            <span class="room-desc">Campus Central Library</span>
+                        </div>
+                        <div class="floor-item-card" onclick="openChatWithQuestion('Where is Room 12?')">
+                            <span class="room-badge">Room 12</span>
+                            <span class="room-desc">TPO / PRO Office</span>
+                        </div>
+                        <div class="floor-item-card" onclick="openChatWithQuestion('Where is Room 19?')">
+                            <span class="room-badge">Room 19</span>
+                            <span class="room-desc">First-Year HOD (Dr. M.S. Khan) & Physics Lab</span>
+                        </div>
+                        <div class="floor-item-card" onclick="openChatWithQuestion('Where are CSE First-Year classrooms?')">
+                            <span class="room-badge">04 – 06</span>
+                            <span class="room-desc">CSE First-Year Classrooms</span>
+                        </div>
+                        <div class="floor-item-card" onclick="openChatWithQuestion('Where are AIML First-Year classrooms?')">
+                            <span class="room-badge">15 – 16</span>
+                            <span class="room-desc">AIML First-Year Classrooms</span>
+                        </div>
+                        <div class="floor-item-card" onclick="openChatWithQuestion('Where is BCE Lab-1?')">
+                            <span class="room-badge">Room 08</span>
+                            <span class="room-desc">Basic Computer Engineering Lab-1</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- First Floor -->
+                <div class="floor-tab-content" id="tab-ff">
+                    <div class="floor-grid">
+                        <div class="floor-item-card" onclick="openChatWithQuestion('Where is Room 103?')">
+                            <span class="room-badge">Room 103</span>
+                            <span class="room-desc">AIML HOD Office (Sudeep Sharma)</span>
+                        </div>
+                        <div class="floor-item-card" onclick="openChatWithQuestion('Where is Room 113?')">
+                            <span class="room-badge">Room 113</span>
+                            <span class="room-desc">CSE HOD Office (Dr. Ruchi Kshatri Patel)</span>
+                        </div>
+                        <div class="floor-item-card" onclick="openChatWithQuestion('Where is Smart Classroom Room 116?')">
+                            <span class="room-badge">Room 116</span>
+                            <span class="room-desc">Smart Classroom</span>
+                        </div>
+                        <div class="floor-item-card" onclick="openChatWithQuestion('Where is Room 117?')">
+                            <span class="room-badge">Room 117</span>
+                            <span class="room-desc">AIML Third-Year Classroom (Prof. Ankit Kachhi & Prof. Vikas Dhanwani)</span>
+                        </div>
+                        <div class="floor-item-card" onclick="openChatWithQuestion('Where is Room 110?')">
+                            <span class="room-badge">Room 110</span>
+                            <span class="room-desc">CSE-A Second-Year Classroom</span>
+                        </div>
+                        <div class="floor-item-card" onclick="openChatWithQuestion('Where is Room 111?')">
+                            <span class="room-badge">Room 111</span>
+                            <span class="room-desc">CSE-B Second-Year Classroom</span>
+                        </div>
+                        <div class="floor-item-card" onclick="openChatWithQuestion('Where is Room 114?')">
+                            <span class="room-badge">114 – 115</span>
+                            <span class="room-desc">AIML Second-Year Classrooms</span>
+                        </div>
+                        <div class="floor-item-card" onclick="openChatWithQuestion('Where is Room 121?')">
+                            <span class="room-badge">Room 121</span>
+                            <span class="room-desc">Exam Cell</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Second Floor -->
+                <div class="floor-tab-content" id="tab-sf">
+                    <div class="floor-grid">
+                        <div class="floor-item-card" onclick="openChatWithQuestion('Where is Room 215?')">
+                            <span class="room-badge">Room 215</span>
+                            <span class="room-desc">CSE-A Third-Year Classroom</span>
+                        </div>
+                        <div class="floor-item-card" onclick="openChatWithQuestion('Where is Room 218?')">
+                            <span class="room-badge">Room 218</span>
+                            <span class="room-desc">Campus Seminar Hall</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Third Floor -->
+                <div class="floor-tab-content" id="tab-tf">
+                    <div class="floor-grid">
+                        <div class="floor-item-card" onclick="openChatWithQuestion('Where is the MBA department?')">
+                            <span class="room-badge">3rd Floor</span>
+                            <span class="room-desc">MBA Department (Dedicated Floor)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Bottom CTA Banner -->
+        <section class="section-wrap" style="padding-top: 0;">
+            <div class="bottom-cta-banner">
+                <h2>Ready to explore SRIST?</h2>
+                <p>Have a question about faculty, rooms, or directions? Ask Shri Campus AI right now.</p>
+                <button class="hero-search-btn" onclick="openChat()" style="margin: 0 auto; padding: 16px 36px; font-size: 1.05rem;">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                    <span>Launch AI Assistant</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="landing-footer">
+            <div class="footer-container">
+                <!-- Left Bottom: Developers Column -->
+                <div class="footer-dev-col">
+                    <div class="footer-dev-header">
+                        <span>👨‍💻 Developed By</span>
+                    </div>
+                    <ul class="footer-dev-list">
+                        <li><span class="dev-num">1.</span> <span>Sahil Sahu</span></li>
+                        <li><span class="dev-num">2.</span> <span>Ratan Mishra (DadaBhai)</span></li>
+                        <li><span class="dev-num">3.</span> <span>Rishabh Koshta</span></li>
+                        <li><span class="dev-num">4.</span> <span>Shravan Patel</span></li>
+                    </ul>
+                    <span class="footer-dev-dept">B.Tech AIML • SRIST Jabalpur</span>
+                </div>
+
+                <!-- Right Bottom: College & System Info -->
+                <div class="footer-info-col">
+                    <div class="footer-brand">
+                        <div class="footer-logo">
+                            <img src="logo.png" alt="SRIST">
+                        </div>
+                        <span class="footer-title">Shri Campus AI</span>
+                    </div>
+                    <p class="footer-info">
+                        Shri Ram Institute of Science & Technology (SRIST), Jabalpur, Madhya Pradesh, India.
+                    </p>
+                    <p class="footer-credit">
+                        B.Tech AIML Student Capstone Project • Powered by Local Qwen AI Engine
+                    </p>
+                </div>
+            </div>
+        </footer>
+
+        <!-- Floating Developer Credit Badge (Left Bottom Side) -->
+        <div class="floating-dev-badge" title="Shri Campus AI Development Team">
+            <div class="floating-dev-header">
+                <span>👨‍💻 Project Developers</span>
+            </div>
+            <div class="floating-dev-names">
+                <span>1. Sahil Sahu</span>
+                <span>2. Ratan Mishra (DadaBhai)</span>
+                <span>3. Rishabh Koshta</span>
+                <span>4. Shravan Patel</span>
+            </div>
+        </div>
+
+        <!-- Floating Action Button (FAB) on Landing Page -->
+        <div class="floating-chat-fab" onclick="openChat()" title="Open Shri Campus AI">
+            <div class="fab-avatar-wrap">
+                <img src="logo.png" alt="Campus AI Emblem">
+                <span class="fab-beacon"></span>
+            </div>
+            <div class="fab-text">
+                <span class="fab-title">Chat with Campus AI</span>
+                <span class="fab-sub">Online • Instant Answers</span>
+            </div>
+            <span class="fab-sparkle">✦</span>
+        </div>
+    </div>
+
+    <!-- ===== CHAT PAGE VIEW ===== -->
+    <div id="chat">
+        
+        <!-- Header -->
+        <header class="chat-header">
+            <button class="chat-back-btn" onclick="goHome()" title="Back to Campus Portal">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><polyline points="12 19 5 12 12 5"/></svg>
+            </button>
+            <div class="chat-header-logo-card">
+                <img src="logo.png" alt="SRIST Emblem">
+            </div>
+            <div class="chat-header-info">
+                <h2>
+                    <span>Shri Campus AI</span>
+                    <span class="verified-badge-pill" style="font-size:0.66rem;">Official Assistant</span>
+                </h2>
+                <div class="chat-header-status">
+                    <span class="chat-status-dot" id="chatStatusDot"></span>
+                    <span id="chatStatusText">Connecting to Qwen AI...</span>
+                </div>
+            </div>
+            <div class="chat-header-tools">
+                <button class="chat-tool-btn" onclick="clearConversation()" title="Clear Chat History">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><polyline points="23 20 23 14 17 14"/><path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"/></svg>
+                    <span>Reset</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Location Helper Strip -->
+        <div class="chat-location-strip">
+            <div class="loc-badge">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                <span>Starting Point:</span>
+            </div>
+            <input type="text" id="startLocation" class="chat-location-input" placeholder="e.g. Main Entrance Gate (optional for directions)">
+            <div class="quick-loc-chips">
+                <span class="loc-chip" onclick="setLocation('Main Entrance Gate')">Main Gate</span>
+                <span class="loc-chip" onclick="setLocation('Ground Floor Corridor')">Ground Floor</span>
+                <span class="loc-chip" onclick="setLocation('First Floor Stairs')">First Floor</span>
+            </div>
+        </div>
+
+        <!-- Connection Error Banner -->
+        <div class="error-notification" id="errorBanner">
+            <span id="errorText">⚠️ Service connection issue</span>
+            <button onclick="retryConnection()">Retry</button>
+        </div>
+
+        <!-- Chat Messages Area -->
+        <div class="chat-messages-container" id="chatMessages">
+            
+            <!-- Welcome Assistant Message -->
+            <div class="chat-msg-row bot">
+                <div class="msg-avatar-card">
+                    <div class="msg-avatar-inner">
+                        <img src="logo.png" alt="Shri Campus AI">
+                    </div>
+                    <span class="avatar-ai-sparkle">✦</span>
+                </div>
+                <div class="msg-body-wrapper">
+                    <div class="msg-sender-meta">
+                        <span class="bot-name-label">Shri Campus AI</span>
+                        <span class="verified-badge-pill">✓ Verified Directory</span>
+                        <span class="ai-model-tag">Qwen 3.5</span>
+                    </div>
+                    <div class="chat-bubble">
+                        Namaste! 🙏 Welcome to <strong>Shri Campus AI</strong>, your official assistant for Shri Ram Institute of Science & Technology (SRIST), Jabalpur.<br><br>
+                        I can help you locate faculty offices, departments, classrooms, laboratories, and campus facilities using our verified college directory. You can ask me in English or Hindi!
+                    </div>
+                    <div class="msg-action-bar">
+                        <button class="msg-action-btn" onclick="copyMessageText(this)">📋 Copy</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Typing Indicator -->
+        <div class="typing-indicator-row" id="typingIndicator" style="padding: 0 20px 14px 20px;">
+            <div class="msg-avatar-card">
+                <div class="msg-avatar-inner">
+                    <img src="logo.png" alt="Shri Campus AI">
+                </div>
+                <span class="avatar-ai-sparkle">✦</span>
+            </div>
+            <div class="typing-bubble">
+                <div class="typing-dot"></div>
+                <div class="typing-dot"></div>
+                <div class="typing-dot"></div>
+                <span class="typing-label">Qwen 3.5 AI is thinking...</span>
+            </div>
+        </div>
+
+        <!-- Quick Suggestions Chips Bar Above Input -->
+        <div class="chat-quick-suggestions">
+            <span class="chat-suggestion-chip" onclick="sendQuickPrompt('Who is the AIML HOD?')">👨‍🏫 Who is the AIML HOD?</span>
+            <span class="chat-suggestion-chip" onclick="sendQuickPrompt('Where is the Principal\'s office?')">🏛️ Principal's Office</span>
+            <span class="chat-suggestion-chip" onclick="sendQuickPrompt('Where is the library?')">📚 Where is the library?</span>
+            <span class="chat-suggestion-chip" onclick="sendQuickPrompt('Where is Third-Year AIML?')">🏫 3rd Year AIML</span>
+            <span class="chat-suggestion-chip" onclick="sendQuickPrompt('Where is the MBA department?')">🎓 MBA Department</span>
+            <span class="chat-suggestion-chip" onclick="sendQuickPrompt('Library kaha hai?')">🇮🇳 Library kaha hai?</span>
+        </div>
+
+        <!-- Chat Input Bar -->
+        <div class="chat-input-bar">
+            <div class="chat-textarea-wrapper">
+                <textarea 
+                    id="chatInput" 
+                    class="chat-textarea" 
+                    placeholder="Ask about faculty, classrooms, rooms, departments..." 
+                    rows="1"
+                    onkeydown="handleKeyDown(event)"
+                    oninput="autoResizeTextarea(this)"
+                ></textarea>
+            </div>
+            <button class="chat-send-btn" id="sendBtn" onclick="sendMessage()" title="Send Message">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="22" y1="2" x2="11" y2="13"/>
+                    <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+                </svg>
+            </button>
+        </div>
+
+    </div>
+
+    <!-- ===== JAVASCRIPT APPLICATION LOGIC ===== -->
+    <script>
+        const API_BASE = window.location.origin;
+        let sessionId = null;
+        let isProcessing = false;
+        let lastFailedMessage = null;
+
+        // Initialize Splash Screen Lifecycle
+        window.addEventListener('DOMContentLoaded', () => {
+            const hasSeenSplash = sessionStorage.getItem('shri_campus_splash_seen');
+            const splashEl = document.getElementById('splash');
+            const landingEl = document.getElementById('landing');
+
+            if (!hasSeenSplash) {
+                setTimeout(() => {
+                    splashEl.classList.add('hidden');
+                    landingEl.classList.add('active');
+                    sessionStorage.setItem('shri_campus_splash_seen', 'true');
+                    checkStatus();
+                }, 1900);
+            } else {
+                splashEl.style.display = 'none';
+                landingEl.classList.add('active');
+                checkStatus();
+            }
+        });
+
+        // Navigation Controllers
+        function openChat() {
+            document.getElementById('landing').classList.remove('active');
+            document.getElementById('chat').classList.add('active');
+            scrollToBottom();
+            setTimeout(() => {
+                document.getElementById('chatInput').focus();
+            }, 100);
+        }
+
+        function openChatWithQuestion(question) {
+            openChat();
+            setTimeout(() => {
+                document.getElementById('chatInput').value = question;
+                sendMessage();
+            }, 200);
+        }
+
+        function submitHeroPrompt() {
+            const input = document.getElementById('heroPromptInput');
+            const question = input.value.trim();
+            if (!question) return;
+            input.value = '';
+            openChatWithQuestion(question);
+        }
+
+        function sendQuickPrompt(question) {
+            document.getElementById('chatInput').value = question;
+            sendMessage();
+        }
+
+        function goHome() {
+            document.getElementById('chat').classList.remove('active');
+            document.getElementById('landing').classList.add('active');
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+
+        function setLocation(loc) {
+            document.getElementById('startLocation').value = loc;
+        }
+
+        function switchFloorTab(floorKey) {
+            document.querySelectorAll('.floor-tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.floor-tab-content').forEach(c => c.classList.remove('active'));
+
+            event.target.classList.add('active');
+            const targetEl = document.getElementById('tab-' + floorKey);
+            if (targetEl) targetEl.classList.add('active');
+        }
+
+        // Status Checking
+        async function checkStatus() {
+            const dot = document.getElementById('chatStatusDot');
+            const text = document.getElementById('chatStatusText');
+            try {
+                const res = await fetch(`${API_BASE}/api/health`);
+                if (res.ok) {
+                    const data = await res.json();
+                    const ollamaOk = data.ollama && data.ollama.ollama_running;
+                    dot.className = 'chat-status-dot' + (ollamaOk ? '' : ' offline');
+                    text.textContent = ollamaOk ? 'Online • Qwen 3.5 Local AI' : 'Offline Mode • Verified KB Ready';
+                    hideError();
+                } else {
+                    dot.className = 'chat-status-dot offline';
+                    text.textContent = 'Server Degraded';
+                }
+            } catch (e) {
+                dot.className = 'chat-status-dot offline';
+                text.textContent = 'Cannot connect to backend';
+                showError('Cannot connect to server. Is the backend running?');
+            }
+        }
+
+        function showError(msg) {
+            document.getElementById('errorText').textContent = msg;
+            document.getElementById('errorBanner').classList.add('visible');
+        }
+
+        function hideError() {
+            document.getElementById('errorBanner').classList.remove('visible');
+        }
+
+        async function retryConnection() {
+            hideError();
+            await checkStatus();
+            if (lastFailedMessage) {
+                document.getElementById('chatInput').value = lastFailedMessage;
+                lastFailedMessage = null;
+            }
+        }
+
+        function clearConversation() {
+            sessionId = null;
+            const container = document.getElementById('chatMessages');
+            container.innerHTML = `
+                <div class="chat-msg-row bot">
+                    <div class="msg-avatar-card">
+                        <div class="msg-avatar-inner">
+                            <img src="logo.png" alt="Shri Campus AI">
+                        </div>
+                        <span class="avatar-ai-sparkle">✦</span>
+                    </div>
+                    <div class="msg-body-wrapper">
+                        <div class="msg-sender-meta">
+                            <span class="bot-name-label">Shri Campus AI</span>
+                            <span class="verified-badge-pill">✓ Verified Directory</span>
+                            <span class="ai-model-tag">Qwen 3.5</span>
+                        </div>
+                        <div class="chat-bubble">
+                            Chat history reset! Ask me anything about faculty, classrooms, labs, or departments.
+                        </div>
+                        <div class="msg-action-bar">
+                            <button class="msg-action-btn" onclick="copyMessageText(this)">📋 Copy</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Add Message to UI
+        function addMessage(role, text) {
+            const container = document.getElementById('chatMessages');
+            const row = document.createElement('div');
+            row.className = `chat-msg-row ${role}`;
+
+            if (role === 'bot') {
+                row.innerHTML = `
+                    <div class="msg-avatar-card">
+                        <div class="msg-avatar-inner">
+                            <img src="logo.png" alt="Shri Campus AI">
+                        </div>
+                        <span class="avatar-ai-sparkle">✦</span>
+                    </div>
+                    <div class="msg-body-wrapper">
+                        <div class="msg-sender-meta">
+                            <span class="bot-name-label">Shri Campus AI</span>
+                            <span class="verified-badge-pill">✓ Verified Record</span>
+                            <span class="ai-model-tag">Qwen 3.5</span>
+                        </div>
+                        <div class="chat-bubble">${formatMarkdown(text)}</div>
+                        <div class="msg-action-bar">
+                            <button class="msg-action-btn" onclick="copyMessageText(this)">📋 Copy</button>
+                        </div>
+                    </div>
+                `;
+            } else {
+                row.innerHTML = `
+                    <div class="msg-avatar-card">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                    </div>
+                    <div class="msg-body-wrapper">
+                        <div class="chat-bubble">${escapeHtml(text)}</div>
+                    </div>
+                `;
+            }
+
+            container.appendChild(row);
+            scrollToBottom();
+        }
+
+        function formatMarkdown(text) {
+            let escaped = escapeHtml(text);
+            escaped = escaped.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+            escaped = escaped.replace(/\*(.*?)\*/g, '<em>$1</em>');
+            escaped = escaped.replace(/`([^`]+)`/g, '<code style="background:#f1f5f9;padding:2px 6px;border-radius:4px;font-family:monospace;font-size:0.88em;">$1</code>');
+            escaped = escaped.replace(/\n\n/g, '<br><br>');
+            escaped = escaped.replace(/\n/g, '<br>');
+            return escaped;
+        }
+
+        function escapeHtml(str) {
+            const d = document.createElement('div');
+            d.textContent = str;
+            return d.innerHTML;
+        }
+
+        function copyMessageText(btn) {
+            const bubble = btn.closest('.msg-body-wrapper').querySelector('.chat-bubble');
+            const text = bubble.innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                const originalText = btn.innerHTML;
+                btn.innerHTML = '✓ Copied!';
+                btn.classList.add('copied');
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                    btn.classList.remove('copied');
+                }, 2000);
+            }).catch(err => {
+                console.error('Could not copy text: ', err);
+            });
+        }
+
+        // Send Message Handler
+        async function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const message = input.value.trim();
+            if (!message || isProcessing) return;
+
+            const startLoc = document.getElementById('startLocation').value.trim();
+
+            addMessage('user', message);
+            input.value = '';
+            input.style.height = 'auto';
+
+            isProcessing = true;
+            document.getElementById('sendBtn').disabled = true;
+            document.getElementById('typingIndicator').classList.add('active');
+            scrollToBottom();
+
+            try {
+                const payload = { message: message };
+                if (sessionId) payload.session_id = sessionId;
+                if (startLoc) payload.starting_location = startLoc;
+
+                const res = await fetch(`${API_BASE}/api/chat`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!res.ok) {
+                    throw new Error(`Server returned HTTP ${res.status}`);
+                }
+
+                const data = await res.json();
+                sessionId = data.session_id || sessionId;
+
+                document.getElementById('typingIndicator').classList.remove('active');
+                addMessage('bot', data.response);
+                hideError();
+
+            } catch (err) {
+                document.getElementById('typingIndicator').classList.remove('active');
+                lastFailedMessage = message;
+                showError('Failed to get answer. Click Retry or check server.');
+                addMessage('bot', 'I encountered a connection problem while communicating with the local AI. Please verify that the backend and Ollama are active and try asking again.');
+            } finally {
+                isProcessing = false;
+                document.getElementById('sendBtn').disabled = false;
+                scrollToBottom();
+                document.getElementById('chatInput').focus();
+            }
+        }
+
+        function handleKeyDown(event) {
+            if (event.key === 'Enter' && !event.shiftKey) {
+                event.preventDefault();
+                sendMessage();
+            }
+        }
+
+        function autoResizeTextarea(textarea) {
+            textarea.style.height = 'auto';
+            textarea.style.height = Math.min(textarea.scrollHeight, 120) + 'px';
+        }
+
+        function scrollToBottom() {
+            const container = document.getElementById('chatMessages');
+            container.scrollTop = container.scrollHeight;
+        }
+    </script>
+</body>
+</html>
